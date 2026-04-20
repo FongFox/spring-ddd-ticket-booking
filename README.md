@@ -18,11 +18,91 @@ The goal is to practice building a **scalable, resilient backend** using clean a
 The application follows **Domain-Driven Design (DDD)** and is split into 5 main modules:
 
 ```
-├── start/           # Entry point — bootstraps the Spring Boot application
-├── application/     # Use cases, application logic, orchestration
-├── controller/      # REST API layer — handles incoming requests
-├── infrastructure/  # DB, cache, Kafka configs, external service adapters
-└── domain/          # Core business logic, entities, value objects, repositories
+spring-ddd-ticket-booking
+├─ DDD-Layered-Architecture-Diagram.drawio
+├─ LICENSE
+├─ README.md
+├─ pom.xml
+├─ vetautet-application
+│  ├─ pom.xml
+│  └─ src
+│     ├─ main
+│     │  ├─ java
+│     │  │  └─ com
+│     │  │     └─ vetautet
+│     │  │        └─ ddd
+│     │  │           └─ application
+│     │  │              ├─ brokerMQ
+│     │  │              ├─ exception
+│     │  │              ├─ model
+│     │  │              ├─ scheduler
+│     │  │              └─ service
+│     │  │                 ├─ event
+│     │  │                 │  ├─ IEventAppService.java
+│     │  │                 │  └─ impl
+│     │  │                 │     └─ EventAppServiceImpl.java
+│     │  │                 └─ order
+│     │  └─ resources
+│     └─ test
+│        └─ java
+├─ vetautet-controller
+│  ├─ pom.xml
+│  └─ src
+│     ├─ main
+│     │  ├─ java
+│     │  │  └─ com
+│     │  │     └─ vetautet
+│     │  │        └─ ddd
+│     │  │           └─ controller
+│     │  │              ├─ model
+│     │  │              └─ resource
+│     │  │                 └─ HiController.java
+│     │  └─ resources
+│     └─ test
+│        └─ java
+├─ vetautet-domain
+│  ├─ pom.xml
+│  └─ src
+│     ├─ main
+│     │  ├─ java
+│     │  │  └─ com
+│     │  │     └─ vetautet
+│     │  │        └─ ddd
+│     │  │           └─ domain
+│     │  │              ├─ model
+│     │  │              │  ├─ entity
+│     │  │              │  └─ enums
+│     │  │              ├─ repository
+│     │  │              └─ service
+│     │  └─ resources
+│     └─ test
+│        └─ java
+├─ vetautet-infrastructure
+│  ├─ pom.xml
+│  └─ src
+│     ├─ main
+│     │  ├─ java
+│     │  │  └─ com
+│     │  │     └─ vetautet
+│     │  │        └─ ddd
+│     │  │           └─ infrastructure
+│     │  │              ├─ model
+│     │  │              └─ service
+│     │  └─ resources
+│     └─ test
+│        └─ java
+└─ vetautet-start
+   ├─ pom.xml
+   └─ src
+      ├─ main
+      │  ├─ java
+      │  │  └─ com
+      │  │     └─ vetautet
+      │  │        └─ StartApplication.java
+      │  └─ resources
+      │     └─ application.yml
+      └─ test
+         └─ java
 ```
 
 ---
