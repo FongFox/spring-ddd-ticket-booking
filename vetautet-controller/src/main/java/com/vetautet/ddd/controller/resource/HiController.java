@@ -20,4 +20,10 @@ public class HiController {
         // return new String("Hello world!");
         return eventAppService.sayHi("who???");
     }
+
+    @GetMapping("hi/v1")
+    public String getHi() {
+        // return new String("Hello world!");
+        return eventAppService.sayHi("who???");
+    }
 }

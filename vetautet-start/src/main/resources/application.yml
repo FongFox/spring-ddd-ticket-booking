@@ -1,2 +1,5 @@
 server:
     port: 1122
+    tomcat:
+        threads:
+            max: 10

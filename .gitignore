@@ -38,3 +38,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Benchmark tools (binaries)
+benchmark/jmeter/
+benchmark/results/
+benchmark/logs/
