@@ -3,3 +3,49 @@ server:
     tomcat:
         threads:
             max: 10
+spring:
+    # application
+    application:
+        name: vetautet.com
+    #DBS
+    # datasource:
+    # jpa:
+    # jackson:
+    #Redis Server Connection Settings
+    # data:
+resilience4j.circuitbreaker:
+    instances:
+        checkRandom:
+            registerHealthIndicator: true
+            slidingWindowSize: 10
+            permittedNumberOfCallsInHalfOpenState: 3
+            # slidingWindowType: TIME_BASED
+            minimumNumberOfCalls: 5
+            waitDurationInOpenState: 5s
+            failureRateThreshold: 50
+            eventConsumerBufferSize: 10
+resilience4j.ratelimiter:
+    instances:
+        backendA:
+            limitForPeriod: 2
+            limitRefreshPeriod: 10s
+            timeoutDuration: 0
+            registerHealthIndicator: true
+            eventConsumerBufferSize: 100
+        backendB:
+            limitForPeriod: 5
+            limitRefreshPeriod: 10s
+            timeoutDuration: 3s
+#Spring Actuator Config:
+management:
+    health:
+        circuitbreakers:
+            enabled: true
+    endpoints:
+        web:
+            exposure:
+                include:
+                    - '*'
+    endpoint:
+        health:
+            show-details: always
