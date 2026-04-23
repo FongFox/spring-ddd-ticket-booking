@@ -43,3 +43,6 @@ build/
 benchmark/jmeter/
 benchmark/results/
 benchmark/logs/
+
+# Zip Compressed
+*.zip
