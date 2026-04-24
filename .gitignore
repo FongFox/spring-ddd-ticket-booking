@@ -46,3 +46,11 @@ benchmark/logs/
 
 # Zip Compressed
 *.zip
+
+# Docker data
+environment/data/
+
+# JMeter
+jmeter.log
+*.jtl
+benchmark/results/
