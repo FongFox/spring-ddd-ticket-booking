@@ -54,3 +54,6 @@ environment/data/
 jmeter.log
 *.jtl
 benchmark/results/
+
+# Load testing binaries
+vegeta.exe
