@@ -28,6 +28,27 @@ spring-ddd-ticket-booking/
 │   │   ├── init/
 │   │       └── ticket_init.sql
 │   └── docker-compose-dev.yml
+├── knowledge-summary/
+│   ├── diagrams/
+│   │   ├── DDD-Layered-Architecture-Diagram.drawio
+│   │   └── module-dependency-diagram.drawio
+│   ├── other/
+│   │   ├── ddd-package-structures.html
+│   │   ├── ddd-package-structures.md
+│   │   └── spring-boot-ddd-from-scratch-ver-0.html
+│   ├── section-0-4/
+│       ├── Cache-Aside-Pattern-2.png
+│       ├── Cache-Aside-Pattern.png
+│       ├── Circuit Breaker-Resilience4j-2.png
+│       ├── Circuit Breaker-Resilience4j.png
+│       ├── DDD-Layered-Architecture-project-structure-2.png
+│       ├── DDD-Layered-Architecture-project-structure.png
+│       ├── Distributed-Lock-Redisson-2.png
+│       ├── Distributed-Lock-Redisson.png
+│       ├── Optional.md
+│       ├── Rate Limiter-Resilience4j-2.png
+│       ├── Rate Limiter-Resilience4j.png
+│       └── section-0-4.md
 ├── vetautet-application/
 │   ├── src/
 │   │   ├── main/
@@ -50,7 +71,8 @@ spring-ddd-ticket-booking/
 │   │       │                           ├── cache/
 │   │       │                           │   └── TicketDetailCacheService.java
 │   │       │                           ├── impl/
-│   │       │                               └── TicketDetailAppServiceImpl.java
+│   │       │                           │   └── TicketDetailAppServiceImpl.java
+│   │       │                           └── ITicketDetailAppService.java
 │   │       ├── resources/
 │   └── pom.xml
 ├── vetautet-controller/
@@ -63,9 +85,13 @@ spring-ddd-ticket-booking/
 │   │                       ├── controller/
 │   │                           ├── model/
 │   │                           │   ├── enums/
+│   │                           │   │   ├── ResultCode.java
+│   │                           │   │   └── ResultUtil.java
 │   │                           │   ├── vo/
+│   │                           │       └── ResultMessage.java
 │   │                           ├── resource/
-│   │                               └── HiController.java
+│   │                               ├── HiController.java
+│   │                               └── TicketDetailController.java
 │   └── pom.xml
 ├── vetautet-domain/
 │   ├── src/
@@ -76,8 +102,9 @@ spring-ddd-ticket-booking/
 │   │       │           ├── ddd/
 │   │       │               ├── domain/
 │   │       │                   ├── model/
-│   │       │                   │   ├── Ticket.java
-│   │       │                   │   └── TicketDetail.java
+│   │       │                   │   ├── entity/
+│   │       │                   │       ├── Ticket.java
+│   │       │                   │       └── TicketDetail.java
 │   │       │                   ├── repository/
 │   │       │                   │   ├── IHiDomainRepository.java
 │   │       │                   │   └── ITicketDetailRepository.java
@@ -85,7 +112,8 @@ spring-ddd-ticket-booking/
 │   │       │                       ├── impl/
 │   │       │                       │   ├── HiDomainServiceImpl.java
 │   │       │                       │   └── TicketDetailDomainServiceImpl.java
-│   │       │                       └── IHiDomainService.java
+│   │       │                       ├── IHiDomainService.java
+│   │       │                       └── ITicketDetailDomainService.java
 │   │       ├── resources/
 │   └── pom.xml
 ├── vetautet-infrastructure/
@@ -125,16 +153,18 @@ spring-ddd-ticket-booking/
 │   │       ├── java/
 │   │       │   ├── com/
 │   │       │       ├── vetautet/
+│   │       │           ├── config/
+│   │       │           │   └── OpenApiConfig.java
 │   │       │           └── StartApplication.java
 │   │       ├── resources/
 │   │           └── application.yml
 │   └── pom.xml
-├── DDD-Layered-Architecture-Diagram.drawio
 ├── LICENSE
 ├── README.md
-├── jmeter.log
-├── module-dependency-diagram.drawio
-└── pom.xml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── test.js
 ```
 
 ---
