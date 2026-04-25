@@ -266,8 +266,13 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 | 05      | JAVA DDD 04: Circuit Breaker vs RateLimiter - Tuyến phòng thủ đầu tiên cho DDD (bán vé trực tuyến) | https://www.youtube.com/watch?v=tK7NDEr_vtE | ✅ Done |
 | 06      | JAVA DDD Source Code ~ 1.000 QPS: DDD Project - Bán Vé Từ Video 0 - 4 - How to run() | https://www.youtube.com/watch?v=nXmppGlu4hw | ✅ Done |
 | 07      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson | https://www.youtube.com/watch?v=GqCohsho54s | ⏳ Todo |
-| 08      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson | https://www.youtube.com/watch?v=GqCohsho54s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=38 | ⏳ Todo |
-| 09      | SỐC: Distributed Cache Redis đã phản bội chúng tôi, 1 tỷ thất thoát ở ngày bán vé thứ hai | https://www.youtube.com/watch?v=1pGuG5S68zM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=36 | ⏳ Todo |
+| 08      | SỐC: Distributed Cache Redis đã phản bội chúng tôi, 1 tỷ thất thoát ở ngày bán vé thứ hai | https://www.youtube.com/watch?v=1pGuG5S68zM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=36 | ⏳ Todo |
+| 09      | 👉👉👉: LINK DISCORD FOR MEMBER | https://www.youtube.com/watch?v=AsLW8Xt0UHs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=35 | ✅ Done |
+| 10      | JAVA DDD 06: Tâm sự DEV và vì sao tôi lại không sử dụng LUA Redis trong kịch bản Distributed Cache! | https://www.youtube.com/watch?v=zQWWGnhyZ0s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=34 | ⏳ Todo |
+| 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ⏳ Todo |
+| 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ⏳ Todo |
+| 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ⏳ Todo |
+| 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ⏳ Todo |
 
 ---
 
