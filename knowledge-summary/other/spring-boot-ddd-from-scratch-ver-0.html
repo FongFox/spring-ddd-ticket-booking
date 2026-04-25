@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Boot — From Scratch to Hello World</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0e1419;
+    --surface2: #151c24;
+    --border: #1e2a35;
+    --border2: #263240;
+    --text: #cdd6e0;
+    --muted: #566370;
+    --accent: #3b9eff;
+    --green: #3cba6f;
+    --amber: #e0a020;
+    --red: #e05050;
+    --purple: #8b6bdc;
+    --teal: #2bb5a0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 0;
+  }
+  /* HEADER */
+  .hero {
+    padding: 56px 48px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(59,158,255,.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 600px;
+  }
+  .hero-tags { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+  }
+  .tag.active { border-color: var(--accent); color: var(--accent); background: rgba(59,158,255,.08); }
+
+  /* LAYOUT */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 48px 80px; }
+
+  /* STEP */
+  .step {
+    margin-top: 48px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 17px; font-weight: 700; color: #fff; }
+  .step-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .step-body { padding: 24px; }
+
+  /* COLORS */
+  .s1 .step-num { background: rgba(86,99,112,.2); color: var(--text); border: 1px solid var(--border2); }
+  .s2 .step-num { background: rgba(139,107,220,.15); color: var(--purple); border: 1px solid rgba(139,107,220,.3); }
+  .s3 .step-num { background: rgba(43,181,160,.15); color: var(--teal); border: 1px solid rgba(43,181,160,.3); }
+  .s4 .step-num { background: rgba(224,160,32,.15); color: var(--amber); border: 1px solid rgba(224,160,32,.3); }
+  .s5 .step-num { background: rgba(139,107,220,.15); color: var(--purple); border: 1px solid rgba(139,107,220,.3); }
+  .s6 .step-num { background: rgba(43,181,160,.15); color: var(--teal); border: 1px solid rgba(43,181,160,.3); }
+  .s7 .step-num { background: rgba(60,186,111,.15); color: var(--green); border: 1px solid rgba(60,186,111,.3); }
+  .s8 .step-num { background: rgba(59,158,255,.15); color: var(--accent); border: 1px solid rgba(59,158,255,.3); }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: #060a0e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+  .code-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .code-title span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .code-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border2); }
+  .code-title .dot.green { background: var(--green); }
+  .code-title .dot.amber { background: var(--amber); }
+  .code-title .dot.red { background: var(--red); }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    padding: 20px;
+    overflow-x: auto;
+    color: #8bafc8;
+  }
+  .kw { color: #5e9fe0; }
+  .ann { color: #c29b3b; }
+  .str { color: #5daa72; }
+  .cmt { color: #3d5263; font-style: italic; }
+  .tag-xml { color: #5e9fe0; }
+  .val { color: #5daa72; }
+  .cls { color: #c29b3b; }
+  .fn { color: #8bafc8; }
+  .num { color: #cf9178; }
+
+  /* INFO BOXES */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .info-box {
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .info-box strong {
+    display: block;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    opacity: .6;
+  }
+  .info-box.note { background: rgba(59,158,255,.05); border-color: rgba(59,158,255,.2); color: #7ab8e8; }
+  .info-box.note strong { color: var(--accent); }
+  .info-box.warn { background: rgba(224,160,32,.05); border-color: rgba(224,160,32,.2); color: #c8a050; }
+  .info-box.warn strong { color: var(--amber); }
+  .info-box.good { background: rgba(60,186,111,.05); border-color: rgba(60,186,111,.2); color: #5daa72; }
+  .info-box.good strong { color: var(--green); }
+  .info-box.tip { background: rgba(139,107,220,.05); border-color: rgba(139,107,220,.2); color: #9d85d4; }
+  .info-box.tip strong { color: var(--purple); }
+
+  /* CHECKLIST */
+  .checklist { list-style: none; margin: 12px 0; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+  }
+  .checklist li:last-child { border-bottom: none; }
+  .checklist .check {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .checklist .check.opt { color: var(--muted); }
+
+  /* FILE TREE */
+  .file-tree {
+    background: #060a0e;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 2;
+    margin: 16px 0;
+  }
+  .ft-root { color: #fff; font-weight: 700; }
+  .ft-dir { color: #5e9fe0; }
+  .ft-file { color: #8bafc8; }
+  .ft-ann { color: #3d5263; font-style: italic; }
+  .ft-imp { color: var(--amber); font-weight: 700; }
+
+  /* CMD */
+  .cmd {
+    background: #060a0e;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--green);
+    margin: 10px 0;
+  }
+  .cmd .prompt { color: var(--muted); margin-right: 8px; }
+
+  /* DIVIDER */
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin: 48px 0 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  p.note { font-size: 13px; color: var(--muted); margin: 8px 0; }
+  p.note code { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); background: rgba(59,158,255,.1); padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">// java spring boot</div>
+  <h1>From Scratch<br>→ Hello World</h1>
+  <p>Hướng dẫn chi tiết xây dựng Spring Boot từ đầu — từ cài môi trường đến gọi API thành công. Dùng làm tài liệu tham khảo khi thực hành lại.</p>
+  <div class="hero-tags">
+    <span class="tag active">Java 21</span>
+    <span class="tag">Maven</span>
+    <span class="tag">Spring Boot 3.x</span>
+    <span class="tag">IntelliJ</span>
+    <span class="tag">mvnw wrapper</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- STEP 1 -->
+<div class="step s1">
+  <div class="step-header">
+    <div class="step-num">01</div>
+    <div>
+      <div class="step-title">Chuẩn bị môi trường</div>
+      <div class="step-desc">Cài đặt những thứ cần thiết trước khi bắt đầu</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>JDK 21+</strong>
+        Tải từ adoptium.net hoặc oracle.com. Spring Boot 3.x yêu cầu tối thiểu Java 17, nên chọn 21 (LTS).
+      </div>
+      <div class="info-box note">
+        <strong>IDE</strong>
+        IntelliJ IDEA (Community free) — tốt nhất cho Java. Hoặc VSCode + Extension Pack for Java.
+      </div>
+      <div class="info-box tip">
+        <strong>Maven</strong>
+        Cài global hoặc dùng mvnw wrapper có sẵn trong project (khuyên dùng wrapper — không cần cài Maven).
+      </div>
+      <div class="info-box good">
+        <strong>Docker (optional)</strong>
+        Cần khi chạy MySQL, Redis. Cài Docker Desktop nếu chạy local với DB.
+      </div>
+    </div>
+    <p class="note">Kiểm tra sau khi cài:</p>
+    <div class="cmd"><span class="prompt">$</span>java -version   # phải ra: openjdk 21...</div>
+    <div class="cmd"><span class="prompt">$</span>mvn -version    # nếu cài global Maven</div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step s2">
+  <div class="step-header">
+    <div class="step-num">02</div>
+    <div>
+      <div class="step-title">Tạo project</div>
+      <div class="step-desc">2 cách: dùng start.spring.io hoặc tạo thủ công</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="info-grid">
+      <div class="info-box tip">
+        <strong>Cách 1 — start.spring.io (nhanh)</strong>
+        Vào start.spring.io → chọn Maven + Java 21 + thêm dependency "Spring Web" → Generate → giải nén → mở IntelliJ.
+      </div>
+      <div class="info-box warn">
+        <strong>Cách 2 — Thủ công (hiểu sâu hơn)</strong>
+        Tạo folder → tạo pom.xml tay → tạo cấu trúc src/main/java → tạo main class. Như tipjs series làm.
+      </div>
+    </div>
+
+    <p class="note">Cấu trúc project tối thiểu (single module):</p>
+    <div class="file-tree">
+      <div class="ft-root">my-project/</div>
+      <div>├── <span class="ft-imp">pom.xml</span>                    <span class="ft-ann">← tim của project</span></div>
+      <div>├── <span class="ft-file">mvnw</span> / <span class="ft-file">mvnw.cmd</span>          <span class="ft-ann">← wrapper (copy từ start.spring.io)</span></div>
+      <div>└── <span class="ft-dir">src/main/java/com/example/</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;├── <span class="ft-imp">Application.java</span>          <span class="ft-ann">← main class</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="ft-dir">controller/</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── <span class="ft-imp">HelloController.java</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step s3">
+  <div class="step-header">
+    <div class="step-num">03</div>
+    <div>
+      <div class="step-title">Cấu hình pom.xml</div>
+      <div class="step-desc">File quan trọng nhất — khai báo dependency và plugin</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <p class="note">Có 2 cách setup pom.xml. Cách thường dùng khi single module:</p>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>pom.xml — cách 1: dùng spring-boot-starter-parent (đơn giản nhất)</span></div>
+      <pre><span class="tag-xml">&lt;project&gt;</span>
+  <span class="cmt">&lt;!-- Kế thừa từ Spring Boot parent → tự quản lý version --&gt;</span>
+  <span class="tag-xml">&lt;parent&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-parent<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;version&gt;</span><span class="val">3.5.13</span><span class="tag-xml">&lt;/version&gt;</span>
+  <span class="tag-xml">&lt;/parent&gt;</span>
+
+  <span class="tag-xml">&lt;groupId&gt;</span>com.example<span class="tag-xml">&lt;/groupId&gt;</span>
+  <span class="tag-xml">&lt;artifactId&gt;</span>my-project<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;version&gt;</span>1.0-SNAPSHOT<span class="tag-xml">&lt;/version&gt;</span>
+
+  <span class="tag-xml">&lt;properties&gt;</span>
+    <span class="tag-xml">&lt;java.version&gt;</span>21<span class="tag-xml">&lt;/java.version&gt;</span>
+  <span class="tag-xml">&lt;/properties&gt;</span>
+
+  <span class="tag-xml">&lt;dependencies&gt;</span>
+    <span class="cmt">&lt;!-- Web = REST API + Tomcat embedded --&gt;</span>
+    <span class="tag-xml">&lt;dependency&gt;</span>
+      <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+      <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;/dependency&gt;</span>
+    <span class="cmt">&lt;!-- Không cần ghi version — parent đã quản lý --&gt;</span>
+  <span class="tag-xml">&lt;/dependencies&gt;</span>
+
+  <span class="tag-xml">&lt;build&gt;</span>
+    <span class="tag-xml">&lt;plugins&gt;</span>
+      <span class="cmt">&lt;!-- Plugin này cho phép mvn spring-boot:run --&gt;</span>
+      <span class="tag-xml">&lt;plugin&gt;</span>
+        <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+        <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="tag-xml">&lt;/artifactId&gt;</span>
+      <span class="tag-xml">&lt;/plugin&gt;</span>
+    <span class="tag-xml">&lt;/plugins&gt;</span>
+  <span class="tag-xml">&lt;/build&gt;</span>
+<span class="tag-xml">&lt;/project&gt;</span></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>pom.xml — cách 2: dùng BOM (multi-module, như tipjs series)</span></div>
+      <pre><span class="tag-xml">&lt;project&gt;</span>
+  <span class="cmt">&lt;!-- Không dùng parent → import BOM thay thế --&gt;</span>
+  <span class="tag-xml">&lt;groupId&gt;</span>com.vetautet<span class="tag-xml">&lt;/groupId&gt;</span>
+  <span class="tag-xml">&lt;artifactId&gt;</span>vetautet.com<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;packaging&gt;</span>pom<span class="tag-xml">&lt;/packaging&gt;</span>
+
+  <span class="tag-xml">&lt;modules&gt;</span>
+    <span class="tag-xml">&lt;module&gt;</span>vetautet-start<span class="tag-xml">&lt;/module&gt;</span>
+    <span class="tag-xml">&lt;module&gt;</span>vetautet-controller<span class="tag-xml">&lt;/module&gt;</span>
+    <span class="tag-xml">&lt;module&gt;</span>vetautet-application<span class="tag-xml">&lt;/module&gt;</span>
+    <span class="tag-xml">&lt;module&gt;</span>vetautet-domain<span class="tag-xml">&lt;/module&gt;</span>
+    <span class="tag-xml">&lt;module&gt;</span>vetautet-infrastructure<span class="tag-xml">&lt;/module&gt;</span>
+  <span class="tag-xml">&lt;/modules&gt;</span>
+
+  <span class="tag-xml">&lt;dependencyManagement&gt;</span>
+    <span class="tag-xml">&lt;dependencies&gt;</span>
+      <span class="tag-xml">&lt;dependency&gt;</span>
+        <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+        <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-dependencies<span class="tag-xml">&lt;/artifactId&gt;</span>
+        <span class="tag-xml">&lt;version&gt;</span><span class="val">3.5.13</span><span class="tag-xml">&lt;/version&gt;</span>
+        <span class="tag-xml">&lt;type&gt;</span>pom<span class="tag-xml">&lt;/type&gt;</span>
+        <span class="tag-xml">&lt;scope&gt;</span>import<span class="tag-xml">&lt;/scope&gt;</span>
+      <span class="tag-xml">&lt;/dependency&gt;</span>
+    <span class="tag-xml">&lt;/dependencies&gt;</span>
+  <span class="tag-xml">&lt;/dependencyManagement&gt;</span>
+<span class="tag-xml">&lt;/project&gt;</span></pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>spring-boot-starter-parent</strong>
+        Đơn giản hơn. Tự quản lý version. Không cần ghi version cho dependency. Dùng khi single module.
+      </div>
+      <div class="info-box warn">
+        <strong>spring-boot-dependencies BOM</strong>
+        Linh hoạt hơn. Dùng khi multi-module hoặc có parent POM riêng. Phải import vào dependencyManagement.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step s4">
+  <div class="step-header">
+    <div class="step-num">04</div>
+    <div>
+      <div class="step-title">Main class — Application.java</div>
+      <div class="step-desc">Entry point — nơi Spring Boot khởi động</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>src/main/java/com/example/Application.java</span></div>
+      <pre><span class="kw">package</span> com.example;
+
+<span class="kw">import</span> org.springframework.boot.SpringApplication;
+<span class="kw">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+
+<span class="ann">@SpringBootApplication</span>
+<span class="cmt">// = @Configuration + @EnableAutoConfiguration + @ComponentScan</span>
+<span class="cmt">// Tự động cấu hình Spring, tự scan toàn bộ package</span>
+<span class="kw">public class</span> <span class="cls">Application</span> {
+
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        <span class="cmt">// Khởi động Spring Context + Tomcat embedded</span>
+        SpringApplication.<span class="fn">run</span>(Application.<span class="kw">class</span>, args);
+    }
+}</pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>@SpringBootApplication làm gì?</strong>
+        Bật auto-configuration (tự detect và config bean), bật component scan (tự tìm @Service, @Controller...), bật @Configuration.
+      </div>
+      <div class="info-box tip">
+        <strong>Đặt main class ở đâu?</strong>
+        Đặt ở root package (com.example) — Spring scan từ đây xuống. Đặt sai chỗ → không tìm thấy Controller, Service.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step s5">
+  <div class="step-header">
+    <div class="step-num">05</div>
+    <div>
+      <div class="step-title">Tạo Controller</div>
+      <div class="step-desc">Nhận HTTP request và trả về response</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>src/main/java/com/example/controller/HelloController.java</span></div>
+      <pre><span class="kw">package</span> com.example.controller;
+
+<span class="kw">import</span> org.springframework.web.bind.annotation.GetMapping;
+<span class="kw">import</span> org.springframework.web.bind.annotation.PathVariable;
+<span class="kw">import</span> org.springframework.web.bind.annotation.RequestMapping;
+<span class="kw">import</span> org.springframework.web.bind.annotation.RestController;
+
+<span class="ann">@RestController</span>           <span class="cmt">// = @Controller + @ResponseBody</span>
+<span class="ann">@RequestMapping</span>(<span class="str">"/hello"</span>) <span class="cmt">// base path cho tất cả endpoint trong class này</span>
+<span class="kw">public class</span> <span class="cls">HelloController</span> {
+
+    <span class="cmt">// GET /hello/hi → "Hello World!"</span>
+    <span class="ann">@GetMapping</span>(<span class="str">"/hi"</span>)
+    <span class="kw">public</span> String <span class="fn">sayHi</span>() {
+        <span class="kw">return</span> <span class="str">"Hello World!\n"</span>;
+    }
+
+    <span class="cmt">// GET /hello/hi/{name} → "Hello, fongfox!"</span>
+    <span class="ann">@GetMapping</span>(<span class="str">"/hi/{name}"</span>)
+    <span class="kw">public</span> String <span class="fn">sayHiTo</span>(<span class="ann">@PathVariable</span> String name) {
+        <span class="kw">return</span> <span class="str">"Hello, "</span> + name + <span class="str">"!\n"</span>;
+    }
+}</pre>
+    </div>
+
+    <ul class="checklist">
+      <li><span class="check">▸</span><div><strong>@RestController</strong> — tự động serialize return value thành JSON (hoặc String). Không cần @ResponseBody riêng.</div></li>
+      <li><span class="check">▸</span><div><strong>@RequestMapping("/hello")</strong> — base path. Tất cả endpoint trong class sẽ có prefix này.</div></li>
+      <li><span class="check">▸</span><div><strong>@GetMapping("/hi")</strong> — xử lý GET request tại /hello/hi. Tương tự: @PostMapping, @PutMapping, @DeleteMapping.</div></li>
+      <li><span class="check">▸</span><div><strong>@PathVariable</strong> — lấy giá trị từ URL path. Ví dụ /hello/hi/fongfox → name = "fongfox".</div></li>
+      <li><span class="check opt">○</span><div><strong>@RequestParam</strong> — lấy query param. Ví dụ /hello/hi?name=fongfox.</div></li>
+      <li><span class="check opt">○</span><div><strong>@RequestBody</strong> — lấy body từ POST request (JSON → object).</div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step s6">
+  <div class="step-header">
+    <div class="step-num">06</div>
+    <div>
+      <div class="step-title">Cấu hình application.yml</div>
+      <div class="step-desc">File config chính của Spring Boot — port, DB, Redis...</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>src/main/resources/application.yml — config tối thiểu</span></div>
+      <pre><span class="kw">server</span>:
+  <span class="kw">port</span>: <span class="num">8080</span>          <span class="cmt"># port chạy server (default 8080)</span>
+  <span class="kw">tomcat</span>:
+    <span class="kw">threads</span>:
+      <span class="kw">max</span>: <span class="num">200</span>         <span class="cmt"># max thread pool Tomcat</span>
+
+<span class="kw">spring</span>:
+  <span class="kw">application</span>:
+    <span class="kw">name</span>: <span class="val">my-app</span>      <span class="cmt"># tên app (hiện trong log, Actuator)</span></pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>application.yml — đầy đủ (khi thêm DB + Redis)</span></div>
+      <pre><span class="kw">server</span>:
+  <span class="kw">port</span>: <span class="num">1122</span>
+
+<span class="kw">spring</span>:
+  <span class="kw">application</span>:
+    <span class="kw">name</span>: <span class="val">vetautet.com</span>
+
+  <span class="kw">datasource</span>:           <span class="cmt"># MySQL config</span>
+    <span class="kw">url</span>: <span class="val">jdbc:mysql://localhost:3316/vetautet</span>
+    <span class="kw">username</span>: <span class="val">root</span>
+    <span class="kw">password</span>: <span class="val">root1234</span>
+    <span class="kw">driver-class-name</span>: <span class="val">com.mysql.cj.jdbc.Driver</span>
+
+  <span class="kw">jpa</span>:
+    <span class="kw">show-sql</span>: <span class="val">true</span>
+    <span class="kw">hibernate</span>:
+      <span class="kw">ddl-auto</span>: <span class="val">none</span>    <span class="cmt"># none = không tự tạo/sửa table</span>
+
+  <span class="kw">data</span>:
+    <span class="kw">redis</span>:              <span class="cmt"># Redis config</span>
+      <span class="kw">host</span>: <span class="val">127.0.0.1</span>
+      <span class="kw">port</span>: <span class="num">6319</span></pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box good">
+        <strong>yml vs properties</strong>
+        yml (YAML) dùng indent để phân cấp → dễ đọc hơn. properties dùng dot notation. Spring hỗ trợ cả 2.
+      </div>
+      <div class="info-box warn">
+        <strong>Lưu ý indent YAML</strong>
+        Dùng 2 spaces (không dùng tab!). Sai indent → app fail start với lỗi khó hiểu.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 7 -->
+<div class="step s7">
+  <div class="step-header">
+    <div class="step-num">07</div>
+    <div>
+      <div class="step-title">Build và Run</div>
+      <div class="step-desc">Compile, package và khởi động ứng dụng</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <p class="note">Dùng <code>mvnw.cmd</code> (Windows) hoặc <code>./mvnw</code> (Mac/Linux):</p>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>Terminal — PowerShell (Windows)</span></div>
+      <pre><span class="cmt"># Bước 1: Build toàn bộ project (compile + install vào .m2)</span>
+<span class="val">.\mvnw.cmd clean install -DskipTests</span>
+
+<span class="cmt"># Bước 2: Run (single module)</span>
+<span class="val">.\mvnw.cmd spring-boot:run</span>
+
+<span class="cmt"># Bước 2: Run (multi-module — chỉ định module có main())</span>
+<span class="val">.\mvnw.cmd spring-boot:run -pl vetautet-start</span>
+
+<span class="cmt"># Hoặc dùng IntelliJ: mở Application.java → click nút ▶ Run</span></pre>
+    </div>
+
+    <ul class="checklist">
+      <li><span class="check">▸</span><div><strong>clean</strong> — xóa folder target/ trước khi build → tránh dùng class cũ.</div></li>
+      <li><span class="check">▸</span><div><strong>install</strong> — compile + package + copy JAR vào ~/.m2/repository → các module khác tìm thấy.</div></li>
+      <li><span class="check">▸</span><div><strong>-DskipTests</strong> — bỏ qua test khi build để nhanh hơn.</div></li>
+      <li><span class="check">▸</span><div><strong>spring-boot:run</strong> — cần spring-boot-maven-plugin trong pom.xml của module có main().</div></li>
+      <li><span class="check opt">○</span><div><strong>-pl vetautet-start</strong> — chỉ run module cụ thể (dùng cho multi-module). Cần install trước.</div></li>
+    </ul>
+
+    <div class="info-box warn" style="margin-top:12px">
+      <strong>Log thành công trông như thế này</strong>
+      Tomcat started on port 1122 (http) · Started Application in 2.3 seconds
+    </div>
+  </div>
+</div>
+
+<!-- STEP 8 -->
+<div class="step s8">
+  <div class="step-header">
+    <div class="step-num">08</div>
+    <div>
+      <div class="step-title">Test API</div>
+      <div class="step-desc">Kiểm tra endpoint bằng curl hoặc browser</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>Test bằng curl</span></div>
+      <pre><span class="cmt"># Hello World cơ bản</span>
+<span class="val">curl http://localhost:8080/hello/hi</span>
+<span class="cmt"># → Hello World!</span>
+
+<span class="cmt"># Với path variable</span>
+<span class="val">curl http://localhost:8080/hello/hi/fongfox</span>
+<span class="cmt"># → Hello, fongfox!</span>
+
+<span class="cmt"># Load test nhanh với k6</span>
+<span class="val">k6 run --vus 50 --duration 5s test.js</span></pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box good">
+        <strong>Công cụ test API</strong>
+        curl (terminal) · Postman (GUI) · Bruno (nhẹ hơn Postman) · Swagger UI (tích hợp trong app với springdoc)
+      </div>
+      <div class="info-box tip">
+        <strong>Thêm Swagger UI</strong>
+        Thêm springdoc-openapi-starter-webmvc-ui vào pom.xml → truy cập http://localhost:8080/swagger-ui để test API trực tiếp trên browser.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 9: Service Layer -->
+<div class="section-label">// thêm các layer — DDD structure</div>
+
+<div class="step s4" style="margin-top:20px">
+  <div class="step-header">
+    <div class="step-num">09</div>
+    <div>
+      <div class="step-title">Service Layer — Application + Domain</div>
+      <div class="step-desc">Business logic — nơi xử lý nghiệp vụ, interface + implement</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <p class="note">Pattern chuẩn: luôn tạo Interface trước, Impl sau. Inject Interface — không inject class thẳng.</p>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>application/service/ticket/ITicketDetailAppService.java — Interface</span></div>
+      <pre><span class="kw">package</span> com.example.application.service.ticket;
+
+<span class="kw">import</span> com.example.domain.model.entity.TicketDetail;
+
+<span class="cmt">// Interface = bản hợp đồng, định nghĩa WHAT (làm gì)</span>
+<span class="cmt">// Prefix I: convention phổ biến trong Java/.NET enterprise DDD</span>
+<span class="kw">public interface</span> <span class="cls">ITicketDetailAppService</span> {
+
+    TicketDetail <span class="fn">getTicketDetailById</span>(Long ticketId);
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>application/service/ticket/impl/TicketDetailAppServiceImpl.java — Implementation</span></div>
+      <pre><span class="kw">package</span> com.example.application.service.ticket.impl;
+
+<span class="kw">import</span> com.example.application.service.ticket.ITicketDetailAppService;
+<span class="kw">import</span> com.example.domain.model.entity.TicketDetail;
+<span class="kw">import</span> com.example.domain.service.ITicketDetailDomainService;
+<span class="kw">import</span> lombok.extern.slf4j.Slf4j;
+<span class="kw">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="kw">import</span> org.springframework.stereotype.Service;
+
+<span class="ann">@Service</span>   <span class="cmt">// Spring quản lý bean này, cho phép @Autowired</span>
+<span class="ann">@Slf4j</span>     <span class="cmt">// Lombok: tự inject logger, dùng log.info(), log.error()</span>
+<span class="kw">public class</span> <span class="cls">TicketDetailAppServiceImpl</span> <span class="kw">implements</span> <span class="cls">ITicketDetailAppService</span> {
+
+    <span class="cmt">// Inject interface — không inject class thẳng!</span>
+    <span class="ann">@Autowired</span>
+    <span class="kw">private</span> ITicketDetailDomainService ticketDetailDomainService;
+
+    <span class="ann">@Override</span>
+    <span class="kw">public</span> TicketDetail <span class="fn">getTicketDetailById</span>(Long ticketId) {
+        log.<span class="fn">info</span>(<span class="str">"Application layer — ticketId: {}"</span>, ticketId);
+        <span class="kw">return</span> ticketDetailDomainService.<span class="fn">getTicketDetailById</span>(ticketId);
+    }
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>domain/service/ITicketDetailDomainService.java + Impl</span></div>
+      <pre><span class="cmt">// Interface</span>
+<span class="kw">public interface</span> <span class="cls">ITicketDetailDomainService</span> {
+    TicketDetail <span class="fn">getTicketDetailById</span>(Long ticketId);
+}
+
+<span class="cmt">// Implementation</span>
+<span class="ann">@Service</span>
+<span class="ann">@Slf4j</span>
+<span class="kw">public class</span> <span class="cls">TicketDetailDomainServiceImpl</span> <span class="kw">implements</span> <span class="cls">ITicketDetailDomainService</span> {
+
+    <span class="ann">@Autowired</span>
+    <span class="kw">private</span> ITicketDetailRepository ticketDetailRepository;
+
+    <span class="ann">@Override</span>
+    <span class="kw">public</span> TicketDetail <span class="fn">getTicketDetailById</span>(Long ticketId) {
+        log.<span class="fn">info</span>(<span class="str">"Domain layer — ticketId: {}"</span>, ticketId);
+        <span class="kw">return</span> ticketDetailRepository.<span class="fn">findById</span>(ticketId).<span class="fn">orElse</span>(<span class="kw">null</span>);
+    }
+}</pre>
+    </div>
+
+    <ul class="checklist">
+      <li><span class="check">▸</span><div><strong>@Service</strong> — đánh dấu đây là service bean. Spring quản lý lifecycle. Cho phép @Autowired.</div></li>
+      <li><span class="check">▸</span><div><strong>@Slf4j</strong> (Lombok) — tự sinh field <code>log</code>. Dùng <code>log.info()</code>, <code>log.error()</code>, <code>log.debug()</code>.</div></li>
+      <li><span class="check">▸</span><div><strong>@Autowired</strong> — Spring tự inject bean phù hợp. Ưu tiên dùng Constructor Injection thay vì field injection.</div></li>
+      <li><span class="check opt">○</span><div><strong>Constructor Injection (chuẩn hơn)</strong> — thay @Autowired field bằng constructor có tham số → dễ test hơn.</div></li>
+    </ul>
+
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>Application vs Domain Service</strong>
+        Application Service: điều phối use case, gọi cache + domain. Domain Service: chứa business rule, gọi Repository.
+      </div>
+      <div class="info-box tip">
+        <strong>@Slf4j vs Logger thủ công</strong>
+        @Slf4j (Lombok) = <code>private static final Logger log = LoggerFactory.getLogger(...);</code> — Lombok viết thay, ngắn hơn nhiều.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 10: Entity + Domain Model -->
+<div class="step s3">
+  <div class="step-header">
+    <div class="step-num">10</div>
+    <div>
+      <div class="step-title">Domain Layer — Entity và Value Object</div>
+      <div class="step-desc">Model nghiệp vụ — Ticket, TicketDetail, các enum</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>domain/model/entity/TicketDetail.java — JPA Entity</span></div>
+      <pre><span class="kw">package</span> com.example.domain.model.entity;
+
+<span class="kw">import</span> jakarta.persistence.*;
+<span class="kw">import</span> lombok.*;
+<span class="kw">import</span> lombok.experimental.Accessors;
+<span class="kw">import</span> java.util.Date;
+
+<span class="ann">@Data</span>              <span class="cmt">// Lombok: getter + setter + equals + hashCode + toString</span>
+<span class="ann">@Accessors</span>(chain = <span class="kw">true</span>)  <span class="cmt">// cho phép method chaining: obj.setName("x").setPrice(100)</span>
+<span class="ann">@NoArgsConstructor</span> <span class="cmt">// Lombok: constructor không tham số (JPA yêu cầu)</span>
+<span class="ann">@AllArgsConstructor</span><span class="cmt">// Lombok: constructor đủ tham số</span>
+<span class="ann">@Entity</span>            <span class="cmt">// JPA: class này map với 1 table trong DB</span>
+<span class="ann">@Table</span>(name = <span class="str">"ticket_item"</span>)  <span class="cmt">// JPA: tên table trong DB</span>
+<span class="kw">public class</span> <span class="cls">TicketDetail</span> {
+
+    <span class="ann">@Id</span>            <span class="cmt">// JPA: đây là Primary Key</span>
+    <span class="kw">private</span> Long id;
+
+    <span class="kw">private</span> String name;
+    <span class="kw">private</span> String description;
+    <span class="kw">private</span> <span class="kw">int</span> stockInitial;
+    <span class="kw">private</span> <span class="kw">int</span> stockAvailable;
+    <span class="kw">private</span> Long priceOriginal;
+    <span class="kw">private</span> Long priceFlash;
+    <span class="kw">private</span> Date saleStartTime;
+    <span class="kw">private</span> Date saleEndTime;
+    <span class="kw">private</span> <span class="kw">int</span> status;
+    <span class="kw">private</span> Long activityId;
+    <span class="kw">private</span> Date updatedAt;
+    <span class="kw">private</span> Date createdAt;
+}</pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>@Entity + @Table</strong>
+        @Entity → JPA quản lý class này. @Table(name="ticket_item") → map với table có tên khác với class. Bỏ @Table → tên table = tên class.
+      </div>
+      <div class="info-box tip">
+        <strong>Lombok annotations</strong>
+        @Data = @Getter + @Setter + @EqualsAndHashCode + @ToString. Thêm Lombok dependency vào pom.xml + cài plugin trong IDE.
+      </div>
+      <div class="info-box warn">
+        <strong>Domain không import Infrastructure</strong>
+        Entity có @Entity (từ jakarta.persistence) nhưng KHÔNG import bất cứ thứ gì từ infra layer. Domain là trung tâm độc lập.
+      </div>
+      <div class="info-box good">
+        <strong>jakarta vs javax</strong>
+        Spring Boot 3.x dùng jakarta.persistence (không phải javax.persistence). Nếu thấy lỗi import → kiểm tra đúng package.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 11: Repository -->
+<div class="step s2">
+  <div class="step-header">
+    <div class="step-num">11</div>
+    <div>
+      <div class="step-title">Repository Layer — Truy cập Database</div>
+      <div class="step-desc">Interface trong Domain, Implementation trong Infrastructure</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <p class="note">Repository pattern: Domain định nghĩa interface, Infrastructure implement. Domain không biết DB tồn tại.</p>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>domain/repository/ITicketDetailRepository.java — Interface (trong Domain)</span></div>
+      <pre><span class="kw">package</span> com.example.domain.repository;
+
+<span class="kw">import</span> com.example.domain.model.entity.TicketDetail;
+<span class="kw">import</span> java.util.Optional;
+
+<span class="cmt">// Domain chỉ biết interface — không biết MySQL hay MongoDB</span>
+<span class="kw">public interface</span> <span class="cls">ITicketDetailRepository</span> {
+    Optional&lt;TicketDetail&gt; <span class="fn">findById</span>(Long id);
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>infrastructure/persistence/mapper/TicketDetailJPAMapper.java — JPA (trong Infrastructure)</span></div>
+      <pre><span class="kw">package</span> com.example.infrastructure.persistence.mapper;
+
+<span class="kw">import</span> com.example.domain.model.entity.TicketDetail;
+<span class="kw">import</span> org.springframework.data.jpa.repository.JpaRepository;
+<span class="kw">import</span> java.util.Optional;
+
+<span class="cmt">// JpaRepository&lt;Entity, IdType&gt; — Spring Data tự generate SQL</span>
+<span class="cmt">// Có sẵn: findById, findAll, save, delete, count...</span>
+<span class="kw">public interface</span> <span class="cls">TicketDetailJPAMapper</span> <span class="kw">extends</span> <span class="cls">JpaRepository</span>&lt;TicketDetail, Long&gt; {
+
+    <span class="cmt">// Spring Data tự generate: SELECT * FROM ticket_item WHERE id = ?</span>
+    Optional&lt;TicketDetail&gt; <span class="fn">findById</span>(Long id);
+
+    <span class="cmt">// Custom query — Spring Data tự parse tên method</span>
+    <span class="cmt">// findByStatus → SELECT * FROM ticket_item WHERE status = ?</span>
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>infrastructure/persistence/repository/TicketDetailInfrasRepositoryImpl.java</span></div>
+      <pre><span class="kw">package</span> com.example.infrastructure.persistence.repository;
+
+<span class="kw">import</span> com.example.domain.model.entity.TicketDetail;
+<span class="kw">import</span> com.example.domain.repository.ITicketDetailRepository;
+<span class="kw">import</span> com.example.infrastructure.persistence.mapper.TicketDetailJPAMapper;
+<span class="kw">import</span> lombok.extern.slf4j.Slf4j;
+<span class="kw">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="kw">import</span> org.springframework.stereotype.Repository;
+<span class="kw">import</span> java.util.Optional;
+
+<span class="ann">@Repository</span>  <span class="cmt">// dùng @Repository cho data access layer</span>
+<span class="ann">@Slf4j</span>
+<span class="kw">public class</span> <span class="cls">TicketDetailInfrasRepositoryImpl</span> <span class="kw">implements</span> <span class="cls">ITicketDetailRepository</span> {
+
+    <span class="ann">@Autowired</span>
+    <span class="kw">private</span> TicketDetailJPAMapper ticketDetailJPAMapper;
+
+    <span class="ann">@Override</span>
+    <span class="kw">public</span> Optional&lt;TicketDetail&gt; <span class="fn">findById</span>(Long id) {
+        log.<span class="fn">info</span>(<span class="str">"Infrastructure layer — id: {}"</span>, id);
+        <span class="kw">return</span> ticketDetailJPAMapper.<span class="fn">findById</span>(id);
+    }
+}</pre>
+    </div>
+
+    <ul class="checklist">
+      <li><span class="check">▸</span><div><strong>JpaRepository&lt;Entity, Id&gt;</strong> — Spring Data tự generate CRUD SQL. Không cần viết SQL tay cho các query đơn giản.</div></li>
+      <li><span class="check">▸</span><div><strong>Optional&lt;T&gt;</strong> — tránh NullPointerException. Dùng .orElse(null) hoặc .orElseThrow() để lấy giá trị.</div></li>
+      <li><span class="check">▸</span><div><strong>@Repository</strong> — dùng cho data access. Spring wrap DB exception thành DataAccessException, dễ handle hơn.</div></li>
+      <li><span class="check opt">○</span><div><strong>@Query annotation</strong> — viết JPQL hoặc native SQL thủ công khi query phức tạp: <code>@Query("SELECT t FROM TicketDetail t WHERE t.status = 1")</code></div></li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 12: Infrastructure Config -->
+<div class="step s6">
+  <div class="step-header">
+    <div class="step-num">12</div>
+    <div>
+      <div class="step-title">Infrastructure Layer — Config (Redis, Redisson, RestTemplate)</div>
+      <div class="step-desc">Đăng ký các bean kết nối với thế giới bên ngoài</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>infrastructure/config/RedisConfig.java</span></div>
+      <pre><span class="kw">package</span> com.example.infrastructure.config;
+
+<span class="kw">import</span> org.springframework.context.annotation.Bean;
+<span class="kw">import</span> org.springframework.context.annotation.Configuration;
+<span class="kw">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;
+<span class="kw">import</span> org.springframework.data.redis.core.RedisTemplate;
+<span class="kw">import</span> org.springframework.data.redis.serializer.*;
+
+<span class="ann">@Configuration</span>  <span class="cmt">// Đây là class config — Spring đọc khi startup</span>
+<span class="kw">public class</span> <span class="cls">RedisConfig</span> {
+
+    <span class="ann">@Bean</span>  <span class="cmt">// Khai báo bean — Spring quản lý, @Autowired được</span>
+    <span class="kw">public</span> RedisTemplate&lt;Object, Object&gt; <span class="fn">redisTemplate</span>(RedisConnectionFactory cf) {
+        RedisTemplate&lt;Object, Object&gt; template = <span class="kw">new</span> <span class="cls">RedisTemplate</span>&lt;&gt;();
+        template.<span class="fn">setConnectionFactory</span>(cf);
+
+        <span class="cmt">// Serialize key thành String, value thành JSON</span>
+        Jackson2JsonRedisSerializer serializer =
+            <span class="kw">new</span> <span class="cls">Jackson2JsonRedisSerializer</span>(Object.<span class="kw">class</span>);
+        template.<span class="fn">setKeySerializer</span>(<span class="kw">new</span> <span class="cls">StringRedisSerializer</span>());
+        template.<span class="fn">setValueSerializer</span>(serializer);
+        template.<span class="fn">afterPropertiesSet</span>();
+        <span class="kw">return</span> template;
+    }
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>infrastructure/distributed/redisson/config/RedissonConfig.java</span></div>
+      <pre><span class="ann">@Configuration</span>
+<span class="kw">public class</span> <span class="cls">RedissonConfig</span> {
+
+    <span class="ann">@Bean</span>
+    <span class="kw">public</span> RedissonClient <span class="fn">redissonClient</span>() {
+        Config config = <span class="kw">new</span> <span class="cls">Config</span>();
+        config.<span class="fn">useSingleServer</span>()
+              .<span class="fn">setAddress</span>(<span class="str">"redis://127.0.0.1:6319"</span>)
+              .<span class="fn">setConnectionPoolSize</span>(<span class="num">50</span>)
+              .<span class="fn">setDatabase</span>(<span class="num">0</span>);
+        <span class="kw">return</span> Redisson.<span class="fn">create</span>(config);
+    }
+}</pre>
+    </div>
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>infrastructure/config/AppConfig.java — RestTemplate với timeout</span></div>
+      <pre><span class="ann">@Configuration</span>
+<span class="kw">public class</span> <span class="cls">AppConfig</span> {
+
+    <span class="ann">@Bean</span>
+    <span class="kw">public</span> RestTemplate <span class="fn">restTemplate</span>() {
+        <span class="cmt">// Cần timeout — không thì app bị đơ khi gọi external API chết</span>
+        HttpComponentsClientHttpRequestFactory factory =
+            <span class="kw">new</span> <span class="cls">HttpComponentsClientHttpRequestFactory</span>();
+        factory.<span class="fn">setConnectTimeout</span>(<span class="num">3000</span>);  <span class="cmt">// 3s connect</span>
+        factory.<span class="fn">setReadTimeout</span>(<span class="num">3000</span>);     <span class="cmt">// 3s read</span>
+        <span class="kw">return new</span> <span class="cls">RestTemplate</span>(factory);
+    }
+}</pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box note">
+        <strong>@Configuration + @Bean</strong>
+        @Configuration: class này chứa bean definitions. @Bean: method này return một bean Spring quản lý. Dùng khi class không có @Service/@Repository.
+      </div>
+      <div class="info-box warn">
+        <strong>RestTemplate cần timeout!</strong>
+        Mặc định không có timeout → khi external API chết, app bị block vô tận → thread pool cạn → server sập. Luôn set timeout.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 13: Kết nối Controller → Service → Domain → Infra -->
+<div class="step s7">
+  <div class="step-header">
+    <div class="step-num">13</div>
+    <div>
+      <div class="step-title">Kết nối toàn bộ — Full Call Chain</div>
+      <div class="step-desc">Controller → Application → Domain → Infrastructure → DB</div>
+    </div>
+  </div>
+  <div class="step-body">
+
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>controller/TicketDetailController.java — đầy đủ với response wrapper</span></div>
+      <pre><span class="ann">@RestController</span>
+<span class="ann">@RequestMapping</span>(<span class="str">"/ticket"</span>)
+<span class="ann">@Slf4j</span>
+<span class="kw">public class</span> <span class="cls">TicketDetailController</span> {
+
+    <span class="ann">@Autowired</span>
+    <span class="kw">private</span> ITicketDetailAppService ticketDetailAppService;
+
+    <span class="cmt">// GET /ticket/1/detail/1</span>
+    <span class="ann">@GetMapping</span>(<span class="str">"/{ticketId}/detail/{detailId}"</span>)
+    <span class="kw">public</span> ResultMessage&lt;TicketDetail&gt; <span class="fn">getTicketDetail</span>(
+            <span class="ann">@PathVariable</span>(<span class="str">"ticketId"</span>) Long ticketId,
+            <span class="ann">@PathVariable</span>(<span class="str">"detailId"</span>) Long detailId) {
+        log.<span class="fn">info</span>(<span class="str">"GET ticket detail — ticketId:{}, detailId:{}"</span>, ticketId, detailId);
+        <span class="kw">return</span> ResultUtil.<span class="fn">data</span>(ticketDetailAppService.<span class="fn">getTicketDetailById</span>(detailId));
+    }
+}</pre>
+    </div>
+
+    <div class="file-tree">
+      <div class="ft-root">Full call chain khi gọi GET /ticket/1/detail/1</div>
+      <div>&nbsp;</div>
+      <div>1. <span class="ft-dir">TicketDetailController</span>  <span class="ft-ann">← nhận request, gọi App Service</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓</div>
+      <div>2. <span class="ft-dir">TicketDetailAppServiceImpl</span>  <span class="ft-ann">← điều phối: gọi cache hoặc domain</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓</div>
+      <div>3. <span class="ft-dir">TicketDetailCacheService</span>  <span class="ft-ann">← check Redis → hit? return. miss? lock → query</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓ (cache miss)</div>
+      <div>4. <span class="ft-dir">TicketDetailDomainServiceImpl</span>  <span class="ft-ann">← business rule, gọi Repository</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓</div>
+      <div>5. <span class="ft-dir">TicketDetailInfrasRepositoryImpl</span>  <span class="ft-ann">← implement ITicketDetailRepository</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓</div>
+      <div>6. <span class="ft-dir">TicketDetailJPAMapper</span>  <span class="ft-ann">← Spring Data JPA → SQL → MySQL</span></div>
+      <div>&nbsp;&nbsp;&nbsp;↓</div>
+      <div>7. <span class="ft-imp">MySQL DB</span>  <span class="ft-ann">← SELECT * FROM ticket_item WHERE id = 1</span></div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box good">
+        <strong>Luồng response ngược lại</strong>
+        MySQL → JPA → Infra → Domain → Cache (set Redis) → Application → Controller → Client. Mỗi layer wrap thêm logic của mình.
+      </div>
+      <div class="info-box tip">
+        <strong>Log ở mỗi layer</strong>
+        Dùng @Slf4j + log.info() ở từng layer. Khi debug sẽ thấy rõ request đi đến đâu và bị lỗi ở layer nào.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 14: pom.xml dependencies đầy đủ -->
+<div class="step s3">
+  <div class="step-header">
+    <div class="step-num">14</div>
+    <div>
+      <div class="step-title">Dependencies đầy đủ — pom.xml cho production</div>
+      <div class="step-desc">Tất cả dependency cần khi thêm DB, Redis, Resilience4j, Swagger</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="code-block">
+      <div class="code-title"><div class="dot red"></div><div class="dot amber"></div><div class="dot green"></div><span>pom.xml — dependencies đầy đủ (root hoặc module cần)</span></div>
+      <pre><span class="tag-xml">&lt;dependencies&gt;</span>
+
+  <span class="cmt">&lt;!-- === WEB === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === DATABASE === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>com.mysql<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>mysql-connector-j<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;scope&gt;</span>runtime<span class="tag-xml">&lt;/scope&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === REDIS === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-data-redis<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === DISTRIBUTED LOCK === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.redisson<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>redisson<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;version&gt;</span><span class="val">3.37.0</span><span class="tag-xml">&lt;/version&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === RESILIENCE4J — Circuit Breaker + Rate Limiter === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>io.github.resilience4j<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>resilience4j-spring-boot3<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;version&gt;</span><span class="val">2.2.0</span><span class="tag-xml">&lt;/version&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === SWAGGER UI === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springdoc<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>springdoc-openapi-starter-webmvc-ui<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;version&gt;</span><span class="val">2.8.6</span><span class="tag-xml">&lt;/version&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+  <span class="cmt">&lt;!-- === UTILITIES === --&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.projectlombok<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>lombok<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="tag-xml">&lt;optional&gt;</span>true<span class="tag-xml">&lt;/optional&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.springframework.boot<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="tag-xml">&lt;/artifactId&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+  <span class="tag-xml">&lt;dependency&gt;</span>
+    <span class="tag-xml">&lt;groupId&gt;</span>org.apache.httpcomponents.client5<span class="tag-xml">&lt;/groupId&gt;</span>
+    <span class="tag-xml">&lt;artifactId&gt;</span>httpclient5<span class="tag-xml">&lt;/artifactId&gt;</span>
+    <span class="cmt">&lt;!-- Cho RestTemplate timeout --&gt;</span>
+  <span class="tag-xml">&lt;/dependency&gt;</span>
+
+<span class="tag-xml">&lt;/dependencies&gt;</span></pre>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-box warn">
+        <strong>spring-boot-starter-aop — QUAN TRỌNG</strong>
+        @RateLimiter và @CircuitBreaker dùng AOP proxy. Thiếu starter-aop → annotation bị bỏ qua hoàn toàn, không có lỗi, không có fallback.
+      </div>
+      <div class="info-box tip">
+        <strong>Domain module chỉ cần</strong>
+        jakarta.persistence-api (cho @Entity, @Id). Không cần spring-data-jpa vì domain không query DB trực tiếp.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BONUS -->
+<div class="section-label">// những lỗi hay gặp</div>
+
+<div class="step s1" style="margin-top:20px">
+  <div class="step-header">
+    <div class="step-num" style="font-size:14px">!</div>
+    <div>
+      <div class="step-title">Troubleshooting — lỗi hay gặp khi mới bắt đầu</div>
+    </div>
+  </div>
+  <div class="step-body">
+    <ul class="checklist">
+      <li><span class="check" style="color:var(--red)">✗</span><div><strong>No plugin found for prefix 'spring-boot'</strong> — Thiếu spring-boot-maven-plugin trong pom.xml của module có main().</div></li>
+      <li><span class="check" style="color:var(--red)">✗</span><div><strong>Port already in use: 8080</strong> — Có process đang dùng port đó. Dùng <code>lsof -i :8080</code> hoặc đổi port trong application.yml.</div></li>
+      <li><span class="check" style="color:var(--red)">✗</span><div><strong>Cannot find symbol / package does not exist</strong> trong VSCode — Chạy <code>mvn clean install</code> trước rồi Clean Language Server Workspace.</div></li>
+      <li><span class="check" style="color:var(--red)">✗</span><div><strong>APPLICATION FAILED TO START — bean required</strong> — Thiếu @Service/@Repository hoặc Spring không scan được. Kiểm tra vị trí main class có đúng root package chưa.</div></li>
+      <li><span class="check" style="color:var(--red)">✗</span><div><strong>mvnw: Permission denied</strong> trên Linux/Mac — Chạy <code>chmod +x mvnw</code> trước.</div></li>
+      <li><span class="check" style="color:var(--amber)">!</span><div><strong>Gạch đỏ trong IDE nhưng curl vẫn ra kết quả</strong> — IDE chưa sync Maven. Bình thường, không phải lỗi thật.</div></li>
+    </ul>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

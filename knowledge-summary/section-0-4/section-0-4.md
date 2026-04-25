@@ -1,7 +1,5 @@
 # Những concept quan trọng mình cần nắm bắt trong section 0 - 4
 
----
-
 Đây là các concept quan trọng trong source, giải thích từ đơn giản đến phức tạp:
 
 ---
