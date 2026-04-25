@@ -64,6 +64,12 @@ resilience4j:
                 limitForPeriod: 5
                 limitRefreshPeriod: 10s
                 timeoutDuration: 3s
+springdoc:
+    api-docs:
+        path: /api-docs
+    swagger-ui:
+        path: /swagger-ui
+        enabled: true
 
 management:
     health:
