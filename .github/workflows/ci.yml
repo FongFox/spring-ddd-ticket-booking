@@ -52,6 +52,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Grant execute permission for mvnw
+        run: chmod +x mvnw
+
       - name: Init MySQL schema
         run: |
           mysql -h 127.0.0.1 -P 3316 -u root -proot1234 < environment/mysql/init/ticket_init.sql
