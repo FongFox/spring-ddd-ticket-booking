@@ -57,3 +57,6 @@ benchmark/results/
 
 # Load testing binaries
 vegeta.exe
+
+# Docker data volume
+environment/data/
