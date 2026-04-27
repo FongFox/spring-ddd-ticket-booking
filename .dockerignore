@@ -1,0 +1,24 @@
+# Build artifacts — không cần copy vào Docker image
+**/target/
+
+# Docker data volume
+environment/data/
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+*.jtl
+
+# Archives
+*.zip
+
+# Load testing
+benchmark/results/
+vegeta.exe
+test.js
+
+# Sensitive (dù đã gitignore nhưng double-check)
+application-prod.yml

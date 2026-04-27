@@ -60,3 +60,8 @@ vegeta.exe
 
 # Docker data volume
 environment/data/
+
+# Sensitive config — không commit lên git
+application-prod.yml
+application-secret.yml
+*.env
