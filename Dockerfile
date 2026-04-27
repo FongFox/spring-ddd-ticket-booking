@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 # Build — bỏ qua test cho nhanh
-RUN ./mvnw clean package -DskipTests
+RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 # Stage 2: Run — dùng JRE nhẹ hơn JDK
 FROM eclipse-temurin:21-jre-alpine
