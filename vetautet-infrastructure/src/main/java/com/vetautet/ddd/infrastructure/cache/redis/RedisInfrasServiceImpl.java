@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -40,6 +41,18 @@ public class RedisInfrasServiceImpl implements RedisInfrasService {
         }
         try {
             redisTemplate.opsForValue().set(key, value);
+        } catch (Exception e) {
+            log.error("setObject error:{}", e.getMessage());
+        }
+    }
+
+    @Override
+    public void setObject(String key, Object value, long timeout, TimeUnit unit) {
+        if (!StringUtils.hasLength(key)) { // null or ''
+            return;
+        }
+        try {
+            redisTemplate.opsForValue().set(key, value, timeout, unit);
         } catch (Exception e) {
             log.error("setObject error:{}", e.getMessage());
         }
