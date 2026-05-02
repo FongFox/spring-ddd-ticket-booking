@@ -35,20 +35,23 @@ spring-ddd-ticket-booking/
 │   ├── other/
 │   │   ├── ddd-package-structures.html
 │   │   ├── ddd-package-structures.md
-│   │   └── spring-boot-ddd-from-scratch-ver-0.html
+│   │   ├── spring-boot-ddd-from-scratch-ver-0.html
+│   │   └── whiteboard_handwritten_cache.html
 │   ├── section-0-4/
-│       ├── Cache-Aside-Pattern-2.png
-│       ├── Cache-Aside-Pattern.png
-│       ├── Circuit Breaker-Resilience4j-2.png
-│       ├── Circuit Breaker-Resilience4j.png
-│       ├── DDD-Layered-Architecture-project-structure-2.png
-│       ├── DDD-Layered-Architecture-project-structure.png
-│       ├── Distributed-Lock-Redisson-2.png
-│       ├── Distributed-Lock-Redisson.png
-│       ├── Optional.md
-│       ├── Rate Limiter-Resilience4j-2.png
-│       ├── Rate Limiter-Resilience4j.png
-│       └── section-0-4.md
+│   │   ├── Cache-Aside-Pattern-2.png
+│   │   ├── Cache-Aside-Pattern.png
+│   │   ├── Circuit Breaker-Resilience4j-2.png
+│   │   ├── Circuit Breaker-Resilience4j.png
+│   │   ├── DDD-Layered-Architecture-project-structure-2.png
+│   │   ├── DDD-Layered-Architecture-project-structure.png
+│   │   ├── Distributed-Lock-Redisson-2.png
+│   │   ├── Distributed-Lock-Redisson.png
+│   │   ├── Optional.md
+│   │   ├── Rate Limiter-Resilience4j-2.png
+│   │   ├── Rate Limiter-Resilience4j.png
+│   │   └── section-0-4.md
+│   ├── section-5-17/
+│       └── Screenshot 2026-04-26 182459.png
 ├── vetautet-application/
 │   ├── src/
 │   │   ├── main/
@@ -125,6 +128,7 @@ spring-ddd-ticket-booking/
 │   │                   ├── ddd/
 │   │                       ├── infrastructure/
 │   │                           ├── cache/
+│   │                           │   ├── local/
 │   │                           │   ├── redis/
 │   │                           │       ├── RedisInfrasService.java
 │   │                           │       └── RedisInfrasServiceImpl.java
@@ -132,6 +136,8 @@ spring-ddd-ticket-booking/
 │   │                           │   ├── AppConfig.java
 │   │                           │   └── RedisConfig.java
 │   │                           ├── distributed/
+│   │                           │   ├── caffeine/
+│   │                           │   ├── hazelcast/
 │   │                           │   ├── redisson/
 │   │                           │       ├── config/
 │   │                           │       │   └── RedissonConfig.java
@@ -157,13 +163,18 @@ spring-ddd-ticket-booking/
 │   │       │           │   └── OpenApiConfig.java
 │   │       │           └── StartApplication.java
 │   │       ├── resources/
+│   │           ├── ApplicationDev.md
+│   │           ├── application-dev.yml
+│   │           ├── application-prod.yml
 │   │           └── application.yml
 │   └── pom.xml
+├── Dockerfile
 ├── LICENSE
 ├── README.md
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
+├── targets.txt
 └── test.js
 ```
 
@@ -295,7 +306,7 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 | 04      | JAVA DDD 3: Hoàn thành SETUP Dự án theo kiến trúc Microservice | https://www.youtube.com/watch?v=IcDiMkb7_TA&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=38 | ✅ Done |
 | 05      | JAVA DDD 04: Circuit Breaker vs RateLimiter - Tuyến phòng thủ đầu tiên cho DDD (bán vé trực tuyến) | https://www.youtube.com/watch?v=tK7NDEr_vtE | ✅ Done |
 | 06      | JAVA DDD Source Code ~ 1.000 QPS: DDD Project - Bán Vé Từ Video 0 - 4 - How to run() | https://www.youtube.com/watch?v=nXmppGlu4hw | ✅ Done |
-| 07      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson | https://www.youtube.com/watch?v=GqCohsho54s | ⏳ Todo |
+| 07      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson | https://www.youtube.com/watch?v=GqCohsho54s | ✅ Done |
 | 08      | SỐC: Distributed Cache Redis đã phản bội chúng tôi, 1 tỷ thất thoát ở ngày bán vé thứ hai | https://www.youtube.com/watch?v=1pGuG5S68zM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=36 | ⏳ Todo |
 | 09      | 👉👉👉: LINK DISCORD FOR MEMBER | https://www.youtube.com/watch?v=AsLW8Xt0UHs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=35 | ✅ Done |
 | 10      | JAVA DDD 06: Tâm sự DEV và vì sao tôi lại không sử dụng LUA Redis trong kịch bản Distributed Cache! | https://www.youtube.com/watch?v=zQWWGnhyZ0s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=34 | ⏳ Todo |
