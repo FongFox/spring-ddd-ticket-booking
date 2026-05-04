@@ -50,7 +50,6 @@ public class TicketDetailCacheService {
     public TicketDetail getTicketDefaultCacheVip(Long id, Long version) {
         // log.info("Implement getTicketDefaultCacheVip->, {}, {} ", id, version);
         // TicketDetail ticketDetail = ticketDetailDomainService.getTicketDetailById(id); // lấy dữ liệu từ DB
-        // Cách ok hơn: sẽ truy vấn từ redis trước
         TicketDetail ticketDetail =  redisInfrasService.getObject(genEventItemKey(id), TicketDetail.class);
         // 2. YES
         if (ticketDetail != null) {

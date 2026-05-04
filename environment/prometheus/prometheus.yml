@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: "banvetau-prometheus"
+    scrape_interval: 5s
+    static_configs:
+      - targets: ["host.docker.internal:9090"]
+    metrics_path: "/metrics"
+
+  - job_name: "banvetau-springboot"
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "host.docker.internal:1122" ]
+    metrics_path: "/actuator/prometheus"
