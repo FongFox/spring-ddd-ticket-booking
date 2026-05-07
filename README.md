@@ -27,6 +27,8 @@ spring-ddd-ticket-booking/
 │   ├── mysql/
 │   │   ├── init/
 │   │       └── ticket_init.sql
+│   ├── prometheus/
+│   │   └── prometheus.yml
 │   └── docker-compose-dev.yml
 ├── knowledge-summary/
 │   ├── diagrams/
@@ -51,7 +53,14 @@ spring-ddd-ticket-booking/
 │   │   ├── Rate Limiter-Resilience4j.png
 │   │   └── section-0-4.md
 │   ├── section-5-17/
-│       └── Screenshot 2026-04-26 182459.png
+│       ├── Screenshot 2026-04-26 182459.png
+│       ├── Screenshot 2026-05-02 200733.png
+│       ├── Screenshot 2026-05-02 200927.png
+│       ├── Screenshot 2026-05-02 200952.png
+│       ├── Screenshot 2026-05-02 201108.png
+│       ├── Screenshot 2026-05-02 201424.png
+│       ├── Screenshot 2026-05-04 181011.png
+│       └── Screenshot 2026-05-04 181043.png
 ├── vetautet-application/
 │   ├── src/
 │   │   ├── main/
@@ -311,7 +320,7 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 | 09      | 👉👉👉: LINK DISCORD FOR MEMBER | https://www.youtube.com/watch?v=AsLW8Xt0UHs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=35 | ✅ Done |
 | 10      | JAVA DDD 06: Tâm sự DEV và vì sao tôi lại không sử dụng LUA Redis trong kịch bản Distributed Cache! | https://www.youtube.com/watch?v=zQWWGnhyZ0s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=34 | ✅ Done |
 | 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ✅ Done |
-| 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ⏳ Todo |
+| 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ✅ Done |
 | 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ⏳ Todo |
 | 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ⏳ Todo |
 

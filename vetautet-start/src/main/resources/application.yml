@@ -46,6 +46,9 @@ resilience4j:
         timeoutDuration: 3s
 
 management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
   health:
     circuitbreakers:
       enabled: true

@@ -13,3 +13,8 @@ scrape_configs:
     static_configs:
       - targets: [ "host.docker.internal:1122" ]
     metrics_path: "/actuator/prometheus"
+
+  - job_name: "banvetau-node-exporter"
+    scrape_interval: 5s
+    static_configs:
+      - targets: [ "host.docker.internal:9100" ]

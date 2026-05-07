@@ -49,6 +49,7 @@ benchmark/logs/
 
 # Docker data
 environment/data/
+environment/grafana-storage/
 
 # JMeter
 jmeter.log
