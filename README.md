@@ -218,7 +218,42 @@ spring-ddd-ticket-booking/
 ### Prerequisites
 - [k6](https://k6.io/docs/get-started/installation/) installed
 
-### Run
+### Run (Windows PowerShell)
+
+```powershell
+# Smoke test — local, 50 VUs x 5s (default)
+.\run-benchmark.ps1
+
+# Standard benchmark — local, 50 VUs x 30s
+.\run-benchmark.ps1 -Mode normal
+
+# Stress test — local, 200 VUs x 30s
+.\run-benchmark.ps1 -Mode heavy
+
+# Test against prod deployment
+.\run-benchmark.ps1 -Target prod -Mode normal
+```
+
+### Run (Linux / macOS Bash)
+
+```bash
+# Grant execute permission (once)
+chmod +x run-benchmark.sh
+
+# Smoke test — local, 50 VUs x 5s (default)
+./run-benchmark.sh
+
+# Standard benchmark — local, 50 VUs x 30s
+./run-benchmark.sh normal
+
+# Stress test — local, 200 VUs x 30s
+./run-benchmark.sh heavy
+
+# Test against prod deployment
+./run-benchmark.sh normal prod
+```
+
+### Run (manual)
 
 ```bash
 # Basic test — 50 VUs, 5 seconds
@@ -226,9 +261,6 @@ k6 run test.js
 
 # Custom VUs and duration
 k6 run --vus 200 --duration 10s test.js
-
-# Save result to file
-k6 run test.js 2>&1 | Tee-Object -FilePath "benchmark/results/result-$(Get-Date -Format 'yyyyMMdd-HHmmss').txt"
 ```
 
 ### Test script (`test.js`)
@@ -321,7 +353,7 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 | 10      | JAVA DDD 06: Tâm sự DEV và vì sao tôi lại không sử dụng LUA Redis trong kịch bản Distributed Cache! | https://www.youtube.com/watch?v=zQWWGnhyZ0s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=34 | ✅ Done |
 | 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ✅ Done |
 | 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ✅ Done |
-| 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ⏳ Todo |
+| 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ✅ Done |
 | 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ⏳ Todo |
 
 ---

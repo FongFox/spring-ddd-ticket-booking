@@ -88,3 +88,28 @@ services:
       - "9100:9100"
     networks:
       - pre-event-network
+
+  mysqld-exporter:
+    image: prom/mysqld-exporter
+    container_name: pre-event-mysqld-exporter
+    ports:
+      - "9104:9104"
+    command:
+      - '--collect.engine_innodb_status'
+      - '--collect.info_schema.processlist'
+      - '--collect.info_schema.tables'
+      - '--collect.info_schema.query_response_time'
+      - '--collect.perf_schema.file_events'
+      - '--collect.perf_schema.eventsstatements'
+      - '--collect.perf_schema.indexiowaits'
+      - '--collect.global_status'
+#      - '--ignores-tables'
+      - '--config.my-cnf=/etc/mysql/.my.cnf'
+    volumes:
+      - ./mysqld-exporter/.my.cnf:/etc/mysql/.my.cnf
+    environment:
+      - DATA_SOURCE_NAME=root:root1234@tcp(mysql:3316)/
+    depends_on:
+      - mysql
+    networks:
+      - pre-event-network
