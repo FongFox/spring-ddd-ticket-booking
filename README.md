@@ -354,7 +354,7 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 | 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ✅ Done |
 | 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ✅ Done |
 | 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ✅ Done |
-| 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ⏳ Todo |
+| 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ✅ Done |
 
 ---
 
