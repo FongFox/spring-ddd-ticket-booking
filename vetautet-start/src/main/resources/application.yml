@@ -2,7 +2,10 @@ server:
   port: ${PORT:1122}
   tomcat:
     threads:
-      max: 200
+      max: 200          # Số thread tối đa xử lý request (virtual threads sẽ override cái này)
+    accept-count: 2000  # Số connection xếp hàng chờ khi server đang bận
+                        # Default = 100 → quá nhỏ cho extreme mode (2000 VUs)
+                        # Nếu queue đầy → OS trả về "connection refused" ngay lập tức
 
 spring:
   application:
@@ -20,6 +23,9 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
+  threads:
+    virtual:
+      enabled: true
 
 resilience4j:
   circuitbreaker:

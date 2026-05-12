@@ -3,9 +3,10 @@
 # Usage: .\run-benchmark.ps1 [-Mode <mode>] [-Target <target>]
 #
 # Modes:
-#   quick   - 50 VUs x 5s   (smoke test)
-#   normal  - 50 VUs x 30s  (standard benchmark)
-#   heavy   - 200 VUs x 30s (stress test)
+#   quick   - 50 VUs x 5s              (smoke test)
+#   normal  - 50 VUs x 30s             (standard benchmark)
+#   heavy   - 200 VUs x 30s            (stress test)
+#   extreme - 2000 VUs x 2m with ramp  (wrk-equivalent stress test)
 #
 # Targets:
 #   local   - http://localhost:1122
@@ -13,7 +14,7 @@
 # =============================================================
 
 param(
-    [ValidateSet("quick", "normal", "heavy")]
+    [ValidateSet("quick", "normal", "heavy", "extreme")]
     [string]$Mode = "normal",
 
     [ValidateSet("local", "prod")]
@@ -26,9 +27,10 @@ $PROD_URL  = "https://spring-ddd-ticket-booking.onrender.com"
 $ENDPOINT  = "/ticket/1/detail/1"
 
 $MODES = @{
-    quick  = @{ vus = 50;  duration = "5s"  }
-    normal = @{ vus = 50;  duration = "30s" }
-    heavy  = @{ vus = 200; duration = "30s" }
+    quick   = @{ vus = 50;   duration = "5s"  }
+    normal  = @{ vus = 50;   duration = "30s" }
+    heavy   = @{ vus = 200;  duration = "30s" }
+    extreme = @{ vus = 2000; duration = "2m"  }
 }
 
 # ---- Resolve target URL --------------------------------------
@@ -58,17 +60,39 @@ Write-Host "=============================================" -ForegroundColor Cyan
 Write-Host ""
 
 # ---- Generate temp test script -------------------------------
-$line1 = "import http from 'k6/http';"
-$line2 = "export const options = { vus: $VUS, duration: '$DURATION' };"
-$line3 = "export default function () {"
-$line4 = "    http.get('$FULL_URL');"
-$line5 = "}"
+if ($Mode -eq "extreme") {
+    # Extreme mode dung stages de ramp-up dan thay vi spike 2000 VUs cung luc
+    # Tranh "connection refused" do OS/Tomcat bi overwhelmed ngay tu dau
+    # Giai doan: ramp-up 30s -> sustain 1m -> ramp-down 30s
+    $k6Script = @"
+import http from 'k6/http';
 
-Set-Content -Path $TEMP_TEST -Value $line1 -Encoding UTF8
-Add-Content -Path $TEMP_TEST -Value $line2 -Encoding UTF8
-Add-Content -Path $TEMP_TEST -Value $line3 -Encoding UTF8
-Add-Content -Path $TEMP_TEST -Value $line4 -Encoding UTF8
-Add-Content -Path $TEMP_TEST -Value $line5 -Encoding UTF8
+export const options = {
+  stages: [
+    { duration: '30s', target: 2000 }, // ramp-up: tang dan len 2000 VUs
+    { duration: '1m',  target: 2000 }, // sustain: giu 2000 VUs trong 1 phut
+    { duration: '30s', target: 0 },    // ramp-down: giam dan ve 0
+  ],
+};
+
+export default function () {
+    http.get('$FULL_URL');
+}
+"@
+} else {
+    # Cac mode khac: flat load don gian
+    $k6Script = @"
+import http from 'k6/http';
+
+export const options = { vus: $VUS, duration: '$DURATION' };
+
+export default function () {
+    http.get('$FULL_URL');
+}
+"@
+}
+
+Set-Content -Path $TEMP_TEST -Value $k6Script -Encoding UTF8
 
 # ---- Run k6 --------------------------------------------------
 k6 run $TEMP_TEST 2>&1 | Tee-Object -FilePath $RESULT_FILE

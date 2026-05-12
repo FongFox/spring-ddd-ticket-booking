@@ -339,22 +339,31 @@ This project is a hands-on implementation following the **Java DDD - Vé Tàu T�
 
 - **Note**: ✅ Done; 🔄 In Progress; ⏳ Todo
 
-| Section | Topic | link | Status |
-|---------|---|---|---|
-| 01      | JAVA DDD 01: CÁCH xây dựng dự án triển khai về DDD bán VÉ TÀU, MUSIC với kiến trúc đồng thời CAO! | https://www.youtube.com/watch?v=WFlIoNHD_Yo&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=42 | ✅ Done |
-| 02      | JAVA DDD 02: BÁN VÉ TÀU TẾT với DDD Structure Project - Phần 02 | https://www.youtube.com/watch?v=hux9dtGQL7w&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=40&t=601s | ✅ Done |
+| Section | Topic                                                                                               | link | Status |
+|---------|-----------------------------------------------------------------------------------------------------|---|---|
+| 01      | JAVA DDD 01: CÁCH xây dựng dự án triển khai về DDD bán VÉ TÀU, MUSIC với kiến trúc đồng thời CAO!   | https://www.youtube.com/watch?v=WFlIoNHD_Yo&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=42 | ✅ Done |
+| 02      | JAVA DDD 02: BÁN VÉ TÀU TẾT với DDD Structure Project - Phần 02                                     | https://www.youtube.com/watch?v=hux9dtGQL7w&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=40&t=601s | ✅ Done |
 | 03      | Project bán vé TÀU TẾT: API sập ngày đầu bán vé (CODE TEST) Review CODE với thấy có vấn đề SAI SÓT. | https://www.youtube.com/watch?v=EQ4WTurq5I0&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=39 | ✅ Done |
-| 04      | JAVA DDD 3: Hoàn thành SETUP Dự án theo kiến trúc Microservice | https://www.youtube.com/watch?v=IcDiMkb7_TA&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=38 | ✅ Done |
-| 05      | JAVA DDD 04: Circuit Breaker vs RateLimiter - Tuyến phòng thủ đầu tiên cho DDD (bán vé trực tuyến) | https://www.youtube.com/watch?v=tK7NDEr_vtE | ✅ Done |
-| 06      | JAVA DDD Source Code ~ 1.000 QPS: DDD Project - Bán Vé Từ Video 0 - 4 - How to run() | https://www.youtube.com/watch?v=nXmppGlu4hw | ✅ Done |
-| 07      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson | https://www.youtube.com/watch?v=GqCohsho54s | ✅ Done |
-| 08      | SỐC: Distributed Cache Redis đã phản bội chúng tôi, 1 tỷ thất thoát ở ngày bán vé thứ hai | https://www.youtube.com/watch?v=1pGuG5S68zM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=36 | ✅ Done |
-| 09      | 👉👉👉: LINK DISCORD FOR MEMBER | https://www.youtube.com/watch?v=AsLW8Xt0UHs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=35 | ✅ Done |
+| 04      | JAVA DDD 3: Hoàn thành SETUP Dự án theo kiến trúc Microservice                                      | https://www.youtube.com/watch?v=IcDiMkb7_TA&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=38 | ✅ Done |
+| 05      | JAVA DDD 04: Circuit Breaker vs RateLimiter - Tuyến phòng thủ đầu tiên cho DDD (bán vé trực tuyến)  | https://www.youtube.com/watch?v=tK7NDEr_vtE | ✅ Done |
+| 06      | JAVA DDD Source Code ~ 1.000 QPS: DDD Project - Bán Vé Từ Video 0 - 4 - How to run()                | https://www.youtube.com/watch?v=nXmppGlu4hw | ✅ Done |
+| 07      | JAVA DDD 05: Distributed Cache - Tuyến phòng thủ thứ hai API (bán vé trực tuyến) - LUA vs Redisson  | https://www.youtube.com/watch?v=GqCohsho54s | ✅ Done |
+| 08      | SỐC: Distributed Cache Redis đã phản bội chúng tôi, 1 tỷ thất thoát ở ngày bán vé thứ hai           | https://www.youtube.com/watch?v=1pGuG5S68zM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=36 | ✅ Done |
 | 10      | JAVA DDD 06: Tâm sự DEV và vì sao tôi lại không sử dụng LUA Redis trong kịch bản Distributed Cache! | https://www.youtube.com/watch?v=zQWWGnhyZ0s&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=34 | ✅ Done |
-| 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ✅ Done |
-| 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ✅ Done |
-| 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ✅ Done |
+| 11      | JAVA DDD 07: Setup hệ thống giám sát API Prometheus Service giúp DEV ngủ ngon                       | https://www.youtube.com/watch?v=MGQrPOrtKhE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=33 | ✅ Done |
+| 12      | JAVA DDD 08: Big Brother Graphana - System Monitoring - Helps DEV Sleep Well                        | https://www.youtube.com/watch?v=NSpHw9tUFjs&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=32 | ✅ Done |
+| 13      | JAVA DDD 09: Giám sát MYSQL ONLINE qua hệ thống API                                                 | https://www.youtube.com/watch?v=jqspVKUye9M&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=31 | ✅ Done |
 | 14      | JAVA DDD 10: Hệ thống giám sát Connects vs Performance Distributed Redis như thế nào? Chưa ngủ ngon | https://www.youtube.com/watch?v=5IuSc2NAM60&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=30 | ✅ Done |
+| 15      | JAVA DDD Source Code ~ 5.000 QPS: Bán Vé Từ Video Section 4 - 10 vs How to run()                    | https://www.youtube.com/watch?v=zoZu10avosY&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=29 | ✅ Done |
+| 16      | JAVA DDD 11: Họp TEAM vũ khí cho việc tăng tốc 20.000 req/s phải đạt 5 tiêu chí sau. DDD - Project  | https://www.youtube.com/watch?v=gv_XHpOigbk&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=28 | ✅ Done |
+| 17      | JAVA DDD 12: Không những 20.000 mà là 25.000 req/s chúng tôi nhận thưởng                            | https://www.youtube.com/watch?v=akl14joFf2A&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=27 | ✅ Done |
+| 18      | JAVA DDD 13: Deploying ELK LOGs distributed system for LARGE system vetautet.com DDD - Project      | https://www.youtube.com/watch?v=6DGnzYkK0uQ&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=27 | ⏳ Todo |
+| 19      | JAVA DDD 14: Hãy dừng Code 5 phút, tính nhất quán (Consistency) thực tế diễn ra bạn đã thấy?        | https://www.youtube.com/watch?v=agIL52ZnQ0o&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=25 | ⏳ Todo |
+| 20      | JAVA DDD 15: Proxy Nginx vs 2 server kịch bản mua vé đồng thời CAO StockAvailable không nhất quán   | https://www.youtube.com/watch?v=S0jeMyqSrVE&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=24 | ⏳ Todo |
+| 21      | JAVA DDD 16: DEV SA (Solution Architecture), dữ liệu phân tán giờ đã nhất quán với cách đơn giản    | https://www.youtube.com/watch?v=XKCKnwJ0F9Y&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=23 | ⏳ Todo |
+| 22      | JAVA DDD 16: DEV SA (Solution Architecture), dữ liệu phân tán giờ đã nhất quán với cách đơn giản    | https://www.youtube.com/watch?v=XKCKnwJ0F9Y&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=23 | ⏳ Todo |
+| 24      | JAVA DDD 17: Triển khai xong mức độ nhất quán tốt nhất phù hợp với nhu cầu của ứng dụng (2)         | https://www.youtube.com/watch?v=0w-DO4guvRU&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=21 | ⏳ Todo |
+| 25      | JAVA DDD Source Code ~ 15,000 QPS: Selling Tickets From Video Section 5-17 How to run()             | https://www.youtube.com/watch?v=_4KTlUvdXoM&list=PLw0w5s5b9NK5Trt3AIxCtpRHWR7nI0RyX&index=20 | ⏳ Todo |
 
 ---
 
